@@ -14,6 +14,7 @@
 
 import 'package:test/test.dart';
 import 'package:typed_sql/sql_dialect/sql_dialect.dart';
+import 'package:typed_sql/src/typed_sql.dart';
 import 'model.dart';
 import 'package:typed_sql/typed_sql.dart';
 
@@ -67,7 +68,7 @@ void main() {
     print(users);
 
     final alice = await db.users
-        .where((u) => u.name.equals.literal('Alice'))
+        .where((u) => u.name.equals('Alice'.literal))
         .first
         .fetch();
     print(alice);

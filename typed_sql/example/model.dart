@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:typed_sql/src/typed_sql.dart';
 import 'package:typed_sql/typed_sql.dart';
 
 part 'model.g.dart';

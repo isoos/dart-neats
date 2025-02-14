@@ -80,6 +80,22 @@ extension DotLiteral<R, T> on R Function(Expr<T>) {
   R literal(T value) => this(Literal(value));
 }
 
+extension BoolLiteral on bool {
+  Literal<bool> get literal => Literal<bool>(this);
+}
+
+extension IntLiteral on int {
+  Literal<int> get literal => Literal<int>(this);
+}
+
+extension DoubleLiteral on double {
+  Literal<double> get literal => Literal<double>(this);
+}
+
+extension StringLiteral on String {
+  Literal<String> get literal => Literal<String>(this);
+}
+
 sealed class BinaryOperationExpression<T, R> extends Expr<R> {
   final Expr<T> left;
   final Expr<T> right;

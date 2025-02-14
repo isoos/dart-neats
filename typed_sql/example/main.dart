@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:typed_sql/src/typed_sql.dart';
 import 'package:typed_sql/typed_sql.dart';
 import 'model.dart';
 
@@ -49,7 +50,7 @@ Future<void> main() async {
     if (user != null) {
       print('${user.email} has liked');
       final queryLikes =
-          db.likes.where((like) => like.userId.equals.literal(user.userId));
+          db.likes.where((like) => like.userId.equals(user.userId.literal));
       await for (final like in queryLikes.fetch()) {
         print(like.packageName);
       }
@@ -65,7 +66,7 @@ Future<void> main() async {
 
   {
     final users = await db.users
-        .where((user) => user.email.endsWith.literal('@google.com'))
+        .where((user) => user.email.endsWith('@google.com'.literal))
         .orderBy((user) => user.email)
         .offset(5)
         .limit(10)
@@ -84,11 +85,11 @@ Future<void> main() async {
   {
     await db.transaction((tx) async {
       await tx.users
-          .where((u) => u.email.endsWith.literal('@google.com'))
+          .where((u) => u.email.endsWith('@google.com'.literal))
           .fetch()
           .toList();
       await tx.likes
-          .where((l) => l.packageName.startsWith.literal('_').not())
+          .where((l) => l.packageName.startsWith('_'.literal).not())
           .fetch()
           .toList();
 

@@ -64,7 +64,7 @@ extension TableUserExt on Table<User> {
 extension QueryUserExt on Query<User> {
   /// TODO: document lookup by PrimaryKey
   QuerySingle<User> byKey({required int userId}) =>
-      where((user) => user.userId.equals.literal(userId)).first;
+      where((user) => user.userId.equals(userId.literal)).first;
 
   /// TODO: document where()
   Query<User> where(Expr<bool> Function(Expr<User> user) conditionBuilder) =>
@@ -122,7 +122,7 @@ extension QueryUserExt on Query<User> {
 
   /// TODO: document byXXX()}
   QuerySingle<User> byEmail(String email) =>
-      where((user) => user.email.equals.literal(email)).first;
+      where((user) => user.email.equals(email.literal)).first;
 }
 
 extension QuerySingleUserExt on QuerySingle<User> {

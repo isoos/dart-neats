@@ -73,7 +73,7 @@ extension TableUserExt on Table<User> {
 extension QueryUserExt on Query<User> {
   /// TODO: document lookup by PrimaryKey
   QuerySingle<User> byKey({required int userId}) =>
-      where((user) => user.userId.equals.literal(userId)).first;
+      where((user) => user.userId.equals(userId.literal)).first;
 
   /// TODO: document where()
   Query<User> where(Expr<bool> Function(Expr<User> user) conditionBuilder) =>
@@ -126,7 +126,7 @@ extension QueryUserExt on Query<User> {
 
   /// TODO: document byXXX()}
   QuerySingle<User> byEmail(String email) =>
-      where((user) => user.email.equals.literal(email)).first;
+      where((user) => user.email.equals(email.literal)).first;
 }
 
 extension QuerySingleUserExt on QuerySingle<User> {
@@ -211,7 +211,7 @@ extension TablePackageExt on Table<Package> {
 extension QueryPackageExt on Query<Package> {
   /// TODO: document lookup by PrimaryKey
   QuerySingle<Package> byKey({required String name}) =>
-      where((package) => package.name.equals.literal(name)).first;
+      where((package) => package.name.equals(name.literal)).first;
 
   /// TODO: document where()
   Query<Package> where(
@@ -349,9 +349,9 @@ extension QueryLikeExt on Query<Like> {
     required int userId,
     required String packageName,
   }) =>
-      where((like) => like.userId.equals
-          .literal(userId)
-          .and(like.packageName.equals.literal(packageName))).first;
+      where((like) => like.userId
+          .equals(userId.literal)
+          .and(like.packageName.equals(packageName.literal))).first;
 
   /// TODO: document where()
   Query<Like> where(Expr<bool> Function(Expr<Like> like) conditionBuilder) =>
