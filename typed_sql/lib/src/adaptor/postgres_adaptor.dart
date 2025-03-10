@@ -43,9 +43,13 @@ mixin _QueryExecutor<S extends Session> {
       queryMode: QueryMode.extended,
     );
     yield* Stream.fromIterable(rs.map(_PostgresRowReader.new));
-    // TODO: Explore why streaming mode doesn't work
+    // TODO: Enable this after type conversions work better.
     // final ps = await _session.prepare(sql);
-    // yield* ps.bind(params).map(_PostgresRowReader.new);
+    // try {
+    //   yield* ps.bind(params).map(_PostgresRowReader.new);
+    // } finally {
+    //   await ps.dispose();
+    // }
   }
 
   Future<void> script(String sql) async {
