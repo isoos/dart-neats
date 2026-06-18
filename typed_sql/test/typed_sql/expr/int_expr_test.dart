@@ -51,12 +51,12 @@ final _cases = [
   (
     name: '0.equals(null)',
     expr: toExpr(0).equals(toExpr(null)),
-    expected: false,
+    expected: null,
   ),
   (
     name: '42.equals(null)',
     expr: toExpr(42).equals(toExpr(null)),
-    expected: false,
+    expected: null,
   ),
 
   // Test for .equalsValue
@@ -93,12 +93,12 @@ final _cases = [
   (
     name: '0.equalsValue(null)',
     expr: toExpr(0).equalsValue(null),
-    expected: false,
+    expected: null,
   ),
   (
     name: '42.equalsValue(null)',
     expr: toExpr(42).equalsValue(null),
-    expected: false,
+    expected: null,
   ),
 
   // Test for .notEquals
@@ -132,16 +132,6 @@ final _cases = [
     expr: toExpr(42).notEquals(toExpr(42)),
     expected: false,
   ),
-  (
-    name: '0.notEquals(null)',
-    expr: toExpr(0).notEquals(toExpr(null)),
-    expected: true,
-  ),
-  (
-    name: '42.notEquals(null)',
-    expr: toExpr(42).notEquals(toExpr(null)),
-    expected: true,
-  ),
 
   // Test for .notEqualsValue
   (
@@ -173,16 +163,6 @@ final _cases = [
     name: '42.notEqualsValue(42)',
     expr: toExpr(42).notEqualsValue(42),
     expected: false,
-  ),
-  (
-    name: '0.notEqualsValue(null)',
-    expr: toExpr(0).notEqualsValue(null),
-    expected: true,
-  ),
-  (
-    name: '42.notEqualsValue(null)',
-    expr: toExpr(42).notEqualsValue(null),
-    expected: true,
   ),
 
   // Test for +
@@ -1116,7 +1096,7 @@ void main() {
       final result = await db.select(
         (c.expr,),
       ).fetch();
-      check(result).isNotNull().equals(c.expected);
+      check(result).equals(c.expected);
     });
   }
 

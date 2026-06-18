@@ -1008,7 +1008,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
                 \$ForGeneratedCode.subqueryTable(
                   _\$${ref.table.rowClass.name}._\$table
                 ).where((r) =>
-                  ${ref.fk.foreignKey.mapIndexed((i, fk) => 'r.${fk.name}.equals(${ref.fk.fields[i]})').join(' & ')}
+                  ${ref.fk.foreignKey.mapIndexed((i, fk) => 'r.${fk.name}.equalsUnlessNull(${ref.fk.fields[i]})').join(' & ')}
                 )
               '''),
           ),
@@ -1044,7 +1044,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
                 _\$${fk.referencedTable.rowClass.name}._\$table
               ).where(
                 (r) =>
-                  ${fk.fields.mapIndexed((i, f) => 'r.$f.equals(${fk.foreignKey[i].name})').join(' & ')}
+                  ${fk.fields.mapIndexed((i, f) => 'r.$f.equalsUnlessNull(${fk.foreignKey[i].name})').join(' & ')}
               ).$firstAsNotNull
             '''),
           );
@@ -1093,7 +1093,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
                 \$ForGeneratedCode.subqueryTable(
                   _\$${ref.table.rowClass.name}._\$table
                 ).where((r) =>
-                  ${ref.fk.foreignKey.mapIndexed((i, fk) => 'r.${fk.name}.equalsUnlessNull(${ref.fk.fields[i]}).asNotNull()').join(' & ')}
+                  ${ref.fk.foreignKey.mapIndexed((i, fk) => 'r.${fk.name}.equalsUnlessNull(${ref.fk.fields[i]})').join(' & ')}
                 )
               '''),
           ),
@@ -1121,7 +1121,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
                 _\$${fk.referencedTable.rowClass.name}._\$table
               ).where(
                 (r) =>
-                  ${fk.fields.mapIndexed((i, f) => 'r.$f.equalsUnlessNull(${fk.foreignKey[i].name}).asNotNull()').join(' & ')}
+                  ${fk.fields.mapIndexed((i, f) => 'r.$f.equalsUnlessNull(${fk.foreignKey[i].name})').join(' & ')}
               ).first
             '''),
           );
@@ -1214,7 +1214,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
                   ..lambda = true
                   ..body = Code('''
                   on((a, b) =>
-                    ${ref.fk.fields.mapIndexed((i, f) => 'a.$f.equals(b.${ref.fk.foreignKey[i].name})').join(' & ')}
+                    ${ref.fk.fields.mapIndexed((i, f) => 'a.$f.equalsUnlessNull(b.${ref.fk.foreignKey[i].name})').join(' & ')}
                   )
                 '''),
               ),
@@ -1232,7 +1232,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
                   ..lambda = true
                   ..body = Code('''
                 on((a, b) =>
-                  ${fk.fields.mapIndexed((i, f) => 'b.$f.equals(a.${fk.foreignKey[i].name})').join(' & ')}
+                  ${fk.fields.mapIndexed((i, f) => 'b.$f.equalsUnlessNull(a.${fk.foreignKey[i].name})').join(' & ')}
                 )
               '''),
               );

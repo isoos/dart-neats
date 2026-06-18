@@ -51,12 +51,12 @@ final _cases = [
   (
     name: '0.0.equals(null)',
     expr: toExpr(0.0).equals(toExpr(null)),
-    expected: false,
+    expected: null,
   ),
   (
     name: '3.14.equals(null)',
     expr: toExpr(3.14).equals(toExpr(null)),
-    expected: false,
+    expected: null,
   ),
 
   // Test for .equalsValue
@@ -93,12 +93,12 @@ final _cases = [
   (
     name: '0.0.equalsValue(null)',
     expr: toExpr(0.0).equalsValue(null),
-    expected: false,
+    expected: null,
   ),
   (
     name: '3.14.equalsValue(null)',
     expr: toExpr(3.14).equalsValue(null),
-    expected: false,
+    expected: null,
   ),
 
   // Test for .notEquals
@@ -132,16 +132,6 @@ final _cases = [
     expr: toExpr(3.14).notEquals(toExpr(3.14)),
     expected: false,
   ),
-  (
-    name: '0.0.notEquals(null)',
-    expr: toExpr(0.0).notEquals(toExpr(null)),
-    expected: true,
-  ),
-  (
-    name: '3.14.notEquals(null)',
-    expr: toExpr(3.14).notEquals(toExpr(null)),
-    expected: true,
-  ),
 
   // Test for .notEqualsValue
   (
@@ -173,16 +163,6 @@ final _cases = [
     name: '3.14.notEqualsValue(3.14)',
     expr: toExpr(3.14).notEqualsValue(3.14),
     expected: false,
-  ),
-  (
-    name: '0.0.notEqualsValue(null)',
-    expr: toExpr(0.0).notEqualsValue(null),
-    expected: true,
-  ),
-  (
-    name: '3.14.notEqualsValue(null)',
-    expr: toExpr(3.14).notEqualsValue(null),
-    expected: true,
   ),
 
   // Test for .lessThan
@@ -1030,7 +1010,7 @@ void main() {
       final result = await db.select(
         (c.expr,),
       ).fetch();
-      check(result).isNotNull().equals(c.expected);
+      check(result).equals(c.expected);
     });
   }
 

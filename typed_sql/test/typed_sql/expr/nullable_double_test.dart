@@ -74,7 +74,7 @@ final _cases =
       (
         name: 'null.asDouble().equals(3.14)',
         expr: toExpr(null).asDouble().equals(toExpr(3.14)),
-        expected: false,
+        expected: null,
       ),
       (
         name: '3.14.equals(3.14)',
@@ -84,7 +84,7 @@ final _cases =
       (
         name: 'null.asDouble().equals(0.0)',
         expr: toExpr(null).asDouble().equals(toExpr(0.0)),
-        expected: false,
+        expected: null,
       ),
       (
         name: '0.0.equals(0.0)',
@@ -163,32 +163,40 @@ final _cases =
         expr: toExpr(0.0 as double?).equalsUnlessNull(toExpr(0.0)),
         expected: true,
       ),
-      // Expr<double?>.notEquals
+      // Expr<double?>.equalsUnlessNull(..).orElseValue(false).not()
       (
-        name: 'null.asDouble().notEquals(3.14)',
-        expr: toExpr(null).asDouble().notEquals(toExpr(3.14)),
+        name: 'null.asDouble().equalsUnlessNull(3.14).orElseValue(false).not()',
+        expr: toExpr(
+          null,
+        ).asDouble().equalsUnlessNull(toExpr(3.14)).orElseValue(false).not(),
         expected: true,
       ),
       (
-        name: '3.14.notEquals(3.14)',
-        expr: toExpr(3.14 as double?).notEquals(toExpr(3.14)),
+        name: '3.14.equalsUnlessNull(3.14).orElseValue(false).not()',
+        expr: toExpr(
+          3.14 as double?,
+        ).equalsUnlessNull(toExpr(3.14)).orElseValue(false).not(),
         expected: false,
       ),
       (
-        name: 'null.asDouble().notEquals(0.0)',
-        expr: toExpr(null).asDouble().notEquals(toExpr(0.0)),
+        name: 'null.asDouble().equalsUnlessNull(0.0).orElseValue(false).not()',
+        expr: toExpr(
+          null,
+        ).asDouble().equalsUnlessNull(toExpr(0.0)).orElseValue(false).not(),
         expected: true,
       ),
       (
-        name: '0.0.notEquals(0.0)',
-        expr: toExpr(0.0 as double?).notEquals(toExpr(0.0)),
+        name: '0.0.equalsUnlessNull(0.0).orElseValue(false).not()',
+        expr: toExpr(
+          0.0 as double?,
+        ).equalsUnlessNull(toExpr(0.0)).orElseValue(false).not(),
         expected: false,
       ),
       // Expr<double?>.equalsValue
       (
         name: 'null.asDouble().equalsValue(3.14)',
         expr: toExpr(null).asDouble().equalsValue(3.14),
-        expected: false,
+        expected: null,
       ),
       (
         name: '3.14.equalsValue(3.14)',
@@ -198,33 +206,12 @@ final _cases =
       (
         name: 'null.asDouble().equalsValue(0.0)',
         expr: toExpr(null).asDouble().equalsValue(0.0),
-        expected: false,
+        expected: null,
       ),
       (
         name: '0.0.equalsValue(0.0)',
         expr: toExpr(0.0 as double?).equalsValue(0.0),
         expected: true,
-      ),
-      // Expr<double?>.notEqualsValue
-      (
-        name: 'null.asDouble().notEqualsValue(3.14)',
-        expr: toExpr(null).asDouble().notEqualsValue(3.14),
-        expected: true,
-      ),
-      (
-        name: '3.14.notEqualsValue(3.14)',
-        expr: toExpr(3.14 as double?).notEqualsValue(3.14),
-        expected: false,
-      ),
-      (
-        name: 'null.asDouble().notEqualsValue(0.0)',
-        expr: toExpr(null).asDouble().notEqualsValue(0.0),
-        expected: true,
-      ),
-      (
-        name: '0.0.notEqualsValue(0.0)',
-        expr: toExpr(0.0 as double?).notEqualsValue(0.0),
-        expected: false,
       ),
 
       // Expr<double?>.isNull()

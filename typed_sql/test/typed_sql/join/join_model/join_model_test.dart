@@ -348,8 +348,9 @@ void main() {
     final result = await db.employees
         .join(db.departments)
         .on(
-          (employee, department) =>
-              employee.departmentId.notEquals(department.departmentId),
+          (employee, department) => employee.departmentId
+              .isNotDistinctFrom(department.departmentId)
+              .not(),
         )
         .select(
           (employee, department) => (
@@ -379,8 +380,9 @@ void main() {
     final result = await db.employees
         .leftJoin(db.departments)
         .on(
-          (employee, department) =>
-              employee.departmentId.notEquals(department.departmentId),
+          (employee, department) => employee.departmentId
+              .isNotDistinctFrom(department.departmentId)
+              .not(),
         )
         .select(
           (employee, department) => (

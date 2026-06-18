@@ -77,7 +77,7 @@ final _cases =
       (
         name: 'null.asDateTime().equals(epoch)',
         expr: toExpr(null).asDateTime().equals(toExpr(epoch)),
-        expected: false,
+        expected: null,
       ),
       (
         name: 'epoch.equals(epoch)',
@@ -87,7 +87,7 @@ final _cases =
       (
         name: 'null.asDateTime().equals(today)',
         expr: toExpr(null).asDateTime().equals(toExpr(today)),
-        expected: false,
+        expected: null,
       ),
       (
         name: 'today.equals(today)',
@@ -166,32 +166,42 @@ final _cases =
         expr: toExpr(today as DateTime?).equalsUnlessNull(toExpr(today)),
         expected: true,
       ),
-      // Expr<DateTime?>.notEquals
+      // Expr<DateTime?>.equalsUnlessNull(..).orElseValue(false).not()
       (
-        name: 'null.asDateTime().notEquals(epoch)',
-        expr: toExpr(null).asDateTime().notEquals(toExpr(epoch)),
+        name:
+            'null.asDateTime().equalsUnlessNull(epoch).orElseValue(false).not()',
+        expr: toExpr(
+          null,
+        ).asDateTime().equalsUnlessNull(toExpr(epoch)).orElseValue(false).not(),
         expected: true,
       ),
       (
-        name: 'epoch.notEquals(epoch)',
-        expr: toExpr(epoch as DateTime?).notEquals(toExpr(epoch)),
+        name: 'epoch.equalsUnlessNull(epoch).orElseValue(false).not()',
+        expr: toExpr(
+          epoch as DateTime?,
+        ).equalsUnlessNull(toExpr(epoch)).orElseValue(false).not(),
         expected: false,
       ),
       (
-        name: 'null.asDateTime().notEquals(today)',
-        expr: toExpr(null).asDateTime().notEquals(toExpr(today)),
+        name:
+            'null.asDateTime().equalsUnlessNull(today).orElseValue(false).not()',
+        expr: toExpr(
+          null,
+        ).asDateTime().equalsUnlessNull(toExpr(today)).orElseValue(false).not(),
         expected: true,
       ),
       (
-        name: 'today.notEquals(today)',
-        expr: toExpr(today as DateTime?).notEquals(toExpr(today)),
+        name: 'today.equalsUnlessNull(today).orElseValue(false).not()',
+        expr: toExpr(
+          today as DateTime?,
+        ).equalsUnlessNull(toExpr(today)).orElseValue(false).not(),
         expected: false,
       ),
       // Expr<DateTime?>.equalsValue
       (
         name: 'null.asDateTime().equalsValue(epoch)',
         expr: toExpr(null).asDateTime().equalsValue(epoch),
-        expected: false,
+        expected: null,
       ),
       (
         name: 'epoch.equalsValue(epoch)',
@@ -201,34 +211,14 @@ final _cases =
       (
         name: 'null.asDateTime().equalsValue(today)',
         expr: toExpr(null).asDateTime().equalsValue(today),
-        expected: false,
+        expected: null,
       ),
       (
         name: 'today.equalsValue(today)',
         expr: toExpr(today as DateTime?).equalsValue(today),
         expected: true,
       ),
-      // Expr<DateTime?>.notEqualsValue
-      (
-        name: 'null.asDateTime().notEqualsValue(epoch)',
-        expr: toExpr(null).asDateTime().notEqualsValue(epoch),
-        expected: true,
-      ),
-      (
-        name: 'epoch.notEqualsValue(epoch)',
-        expr: toExpr(epoch as DateTime?).notEqualsValue(epoch),
-        expected: false,
-      ),
-      (
-        name: 'null.asDateTime().notEqualsValue(today)',
-        expr: toExpr(null).asDateTime().notEqualsValue(today),
-        expected: true,
-      ),
-      (
-        name: 'today.notEqualsValue(today)',
-        expr: toExpr(today as DateTime?).notEqualsValue(today),
-        expected: false,
-      ),
+
       // Expr<DateTime?>.isNull()
       (
         name: 'null.isNull()',
