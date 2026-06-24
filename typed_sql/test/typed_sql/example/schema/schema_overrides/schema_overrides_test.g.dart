@@ -382,7 +382,7 @@ enum AuthorConflict {
   ///
   /// Thus, the other row has matching values for:
   /// `authorId`.
-  primaryKey(['authorId']),
+  primaryKey(['author_id']),
 
   /// `name` conflict.
   ///
@@ -390,7 +390,7 @@ enum AuthorConflict {
   /// `name`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  name(['name']);
+  name(['author_name']);
 
   const AuthorConflict(this._fields);
 
@@ -969,7 +969,7 @@ enum BookConflict {
   ///
   /// Thus, the other row has matching values for:
   /// `bookId`.
-  primaryKey(['bookId']),
+  primaryKey(['book_id']),
 
   /// `title` conflict.
   ///

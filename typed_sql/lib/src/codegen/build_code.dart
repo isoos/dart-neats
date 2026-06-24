@@ -1246,7 +1246,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
   final conflictTargets = [
     (
       name: 'primaryKey',
-      fields: rowClass.primaryKey.map((f) => f.name).toList(),
+      fields: rowClass.primaryKey.map((f) => f.sqlName).toList(),
       docs:
           '''
             Conflict with an existing row that has a matching primary key.
@@ -1260,7 +1260,7 @@ Iterable<Spec> buildTable(ParsedTable table, ParsedSchema schema) sync* {
         name:
             c.name ??
             c.fields.map((f) => f.name).reduce((v, e) => v + upperCamelCase(e)),
-        fields: c.fields.map((f) => f.name).toList(),
+        fields: c.fields.map((f) => f.sqlName).toList(),
         docs:
             '''
               ${c.fields.map((f) => '`${f.name}`').join(', ')} conflict.

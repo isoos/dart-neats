@@ -517,7 +517,7 @@ enum LegacyUserConflict {
   ///
   /// Thus, the other row has matching values for:
   /// `tenantId`, `userId`.
-  primaryKey(['tenantId', 'userId']),
+  primaryKey(['INT_tenant_id', 'INT_user_id']),
 
   /// `email` conflict.
   ///
@@ -525,7 +525,7 @@ enum LegacyUserConflict {
   /// `email`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  email(['email']),
+  email(['str_Email']),
 
   /// `firstName`, `lastName` conflict.
   ///
@@ -533,7 +533,7 @@ enum LegacyUserConflict {
   /// `firstName`, `lastName`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  firstNameLastName(['firstName', 'lastName']);
+  firstNameLastName(['str_First_Name', 'str_Last_Name']);
 
   const LegacyUserConflict(this._fields);
 
@@ -1094,7 +1094,7 @@ enum LegacyCommentConflict {
   ///
   /// Thus, the other row has matching values for:
   /// `commentId`.
-  primaryKey(['commentId']);
+  primaryKey(['c_id']);
 
   const LegacyCommentConflict(this._fields);
 

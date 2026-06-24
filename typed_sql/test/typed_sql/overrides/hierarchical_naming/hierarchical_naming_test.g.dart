@@ -504,7 +504,7 @@ enum HierarchyUserConflict {
   /// `firstName`, `lastName`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  firstNameLastName(['firstName', 'lastName']);
+  firstNameLastName(['str_first_name', 'lastName']);
 
   const HierarchyUserConflict(this._fields);
 
@@ -1058,7 +1058,7 @@ enum HierarchyProfileConflict {
   ///
   /// Thus, the other row has matching values for:
   /// `profileId`.
-  primaryKey(['profileId']),
+  primaryKey(['profile_id']),
 
   /// `profileType` conflict.
   ///
@@ -1066,7 +1066,7 @@ enum HierarchyProfileConflict {
   /// `profileType`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  profileType(['profileType']);
+  profileType(['profile_type']);
 
   const HierarchyProfileConflict(this._fields);
 
