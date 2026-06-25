@@ -1,3 +1,6 @@
+## 0.1.12
+ * Fixed code generator bug that affected `onConflict` clauses with non-default naming.
+
 ## 0.1.11
  * Allow nullable boolean in `.where(...)` clauses.
  * Allow nullable boolean in JOIN `.on(...)` conditions.

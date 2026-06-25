@@ -17,13 +17,14 @@ import '../../testrunner.dart';
 
 part 'insert_values_mapped_conflict_test.g.dart';
 
+@SqlOverride.schema(naming: .snake_case)
 abstract final class ConflictMappedDatabase extends Schema {
   Table<ConflictMappedItem> get conflictMappedItems;
 }
 
-@PrimaryKey(['id'])
+@PrimaryKey(['complexId'])
 abstract final class ConflictMappedItem extends Row {
-  int get id;
+  int get complexId;
 
   @Unique.field()
   @SqlOverride.field(dialect: 'mysql', columnType: 'VARCHAR(255)')
@@ -43,7 +44,7 @@ void main() {
     'insertValuesMapped with .onConflict().doNothing()',
     (db) async {
       await db.conflictMappedItems
-          .insertValue(id: 1, name: 'A', value: 10)
+          .insertValue(complexId: 1, name: 'A', value: 10)
           .execute();
 
       final data = [
@@ -54,7 +55,7 @@ void main() {
       await db.conflictMappedItems
           .insertValuesMapped(
             data,
-            id: (r) => r.id,
+            complexId: (r) => r.id,
             name: (r) => r.name,
             value: (r) => r.value,
           )
@@ -63,7 +64,7 @@ void main() {
           .execute();
 
       final items = await db.conflictMappedItems
-          .orderBy((i) => [(i.id, .ascending)])
+          .orderBy((i) => [(i.complexId, .ascending)])
           .fetch();
       check(items).length.equals(2);
       check(items[0]).name.equals('A');
@@ -77,7 +78,7 @@ void main() {
     'insertValuesMapped with .onConflict().update()',
     (db) async {
       await db.conflictMappedItems
-          .insertValue(id: 1, name: 'A', value: 10)
+          .insertValue(complexId: 1, name: 'A', value: 10)
           .execute();
 
       final data = [
@@ -88,7 +89,7 @@ void main() {
       await db.conflictMappedItems
           .insertValuesMapped(
             data,
-            id: (r) => r.id,
+            complexId: (r) => r.id,
             name: (r) => r.name,
             value: (r) => r.value,
           )
@@ -97,7 +98,7 @@ void main() {
           .execute();
 
       final items = await db.conflictMappedItems
-          .orderBy((i) => [(i.id, .ascending)])
+          .orderBy((i) => [(i.complexId, .ascending)])
           .fetch();
       check(items).length.equals(2);
       check(items[0]).name.equals('A');

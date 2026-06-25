@@ -484,7 +484,7 @@ enum SnakeUserConflict {
   ///
   /// Thus, the other row has matching values for:
   /// `userId`.
-  primaryKey(['userId']),
+  primaryKey(['user_id']),
 
   /// `emailAddress` conflict.
   ///
@@ -492,7 +492,7 @@ enum SnakeUserConflict {
   /// `emailAddress`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  emailAddress(['emailAddress']),
+  emailAddress(['email_address']),
 
   /// `firstName`, `lastName` conflict.
   ///
@@ -500,7 +500,7 @@ enum SnakeUserConflict {
   /// `firstName`, `lastName`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  firstNameLastName(['firstName', 'lastName']);
+  firstNameLastName(['first_name', 'last_name']);
 
   const SnakeUserConflict(this._fields);
 
@@ -1050,7 +1050,7 @@ enum SnakeProfileConflict {
   ///
   /// Thus, the other row has matching values for:
   /// `profileId`.
-  primaryKey(['profileId']),
+  primaryKey(['profile_id']),
 
   /// `profileType` conflict.
   ///
@@ -1058,7 +1058,7 @@ enum SnakeProfileConflict {
   /// `profileType`.
   ///
   /// Thus, the conflicting row has matching values for these fields.
-  profileType(['profileType']);
+  profileType(['profile_type']);
 
   const SnakeProfileConflict(this._fields);
 

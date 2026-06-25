@@ -47,10 +47,10 @@ String createConflictMappedDatabaseTables(SqlDialect dialect) =>
     );
 
 final class _$ConflictMappedItem extends ConflictMappedItem {
-  _$ConflictMappedItem._(this.id, this.name, this.value);
+  _$ConflictMappedItem._(this.complexId, this.name, this.value);
 
   @override
-  final int id;
+  final int complexId;
 
   @override
   final String name;
@@ -59,8 +59,8 @@ final class _$ConflictMappedItem extends ConflictMappedItem {
   final int value;
 
   static final _$table = $ForGeneratedCode.tableDefinition(
-    tableName: 'conflictMappedItems',
-    columns: <String>['id', 'name', 'value'],
+    tableName: 'conflict_mapped_items',
+    columns: <String>['complex_id', 'name', 'value'],
     columnInfo: [
       $ForGeneratedCode.columnDefinition(
         type: $ForGeneratedCode.integer,
@@ -91,7 +91,7 @@ final class _$ConflictMappedItem extends ConflictMappedItem {
         overrides: [],
       ),
     ],
-    primaryKey: <String>['id'],
+    primaryKey: <String>['complex_id'],
     unique: <List<String>>[
       ['name'],
     ],
@@ -100,18 +100,18 @@ final class _$ConflictMappedItem extends ConflictMappedItem {
   );
 
   static ConflictMappedItem? _$fromDatabase(RowReader row) {
-    final id = row.readInt();
+    final complexId = row.readInt();
     final name = row.readString();
     final value = row.readInt();
-    if (id == null && name == null && value == null) {
+    if (complexId == null && name == null && value == null) {
       return null;
     }
-    return _$ConflictMappedItem._(id!, name!, value!);
+    return _$ConflictMappedItem._(complexId!, name!, value!);
   }
 
   @override
   String toString() =>
-      'ConflictMappedItem(id: "$id", name: "$name", value: "$value")';
+      'ConflictMappedItem(complexId: "$complexId", name: "$name", value: "$value")';
 }
 
 /// Extension methods for table defined in [ConflictMappedItem].
@@ -121,22 +121,25 @@ extension TableConflictMappedItemExt on Table<ConflictMappedItem> {
   /// Returns a [InsertSingle] statement on which `.execute` must be
   /// called for the row to be inserted.
   InsertSingle<ConflictMappedItem> insert({
-    required Expr<int> id,
+    required Expr<int> complexId,
     required Expr<String> name,
     required Expr<int> value,
-  }) => $ForGeneratedCode.insertInto(table: this, values: [id, name, value]);
+  }) => $ForGeneratedCode.insertInto(
+    table: this,
+    values: [complexId, name, value],
+  );
 
   /// Insert row into the `conflictMappedItems` table.
   ///
   /// Returns a [InsertSingle] statement on which `.execute` must be
   /// called for the row to be inserted.
   InsertSingle<ConflictMappedItem> insertValue({
-    required int id,
+    required int complexId,
     required String name,
     required int value,
   }) => $ForGeneratedCode.insertInto(
     table: this,
-    values: [id.asExpr, name.asExpr, value.asExpr],
+    values: [complexId.asExpr, name.asExpr, value.asExpr],
   );
 
   /// Bulk insert rows into the `conflictMappedItems` table.
@@ -158,13 +161,13 @@ extension TableConflictMappedItemExt on Table<ConflictMappedItem> {
   /// called for the rows to be inserted.
   Insert<ConflictMappedItem> insertValuesMapped<T>(
     Iterable<T> rows, {
-    required int Function(T row) id,
+    required int Function(T row) complexId,
     required String Function(T row) name,
     required int Function(T row) value,
   }) => $ForGeneratedCode.insertValuesMapped(
     table: this,
     rows: rows,
-    mappings: [id, name, value],
+    mappings: [complexId, name, value],
   );
 
   /// Delete a single row from the `conflictMappedItems` table, specified by
@@ -176,8 +179,8 @@ extension TableConflictMappedItemExt on Table<ConflictMappedItem> {
   /// To delete multiple rows, using `.where()` to filter which rows
   /// should be deleted. If you wish to delete all rows, use
   /// `.where((_) => toExpr(true)).delete()`.
-  DeleteSingle<ConflictMappedItem> delete(int id) =>
-      $ForGeneratedCode.deleteSingle(byKey(id), _$ConflictMappedItem._$table);
+  DeleteSingle<ConflictMappedItem> delete(int complexId) => $ForGeneratedCode
+      .deleteSingle(byKey(complexId), _$ConflictMappedItem._$table);
 }
 
 /// Extension methods for building queries against the `conflictMappedItems` table.
@@ -186,8 +189,8 @@ extension QueryConflictMappedItemExt on Query<(Expr<ConflictMappedItem>,)> {
   ///
   /// Returns a [QuerySingle] object, which returns at-most one row,
   /// when `.fetch()` is called.
-  QuerySingle<(Expr<ConflictMappedItem>,)> byKey(int id) => where(
-    (conflictMappedItem) => conflictMappedItem.id.equalsValue(id),
+  QuerySingle<(Expr<ConflictMappedItem>,)> byKey(int complexId) => where(
+    (conflictMappedItem) => conflictMappedItem.complexId.equalsValue(complexId),
   ).first;
 
   /// Update all rows in the `conflictMappedItems` table matching this [Query].
@@ -221,7 +224,7 @@ extension QueryConflictMappedItemExt on Query<(Expr<ConflictMappedItem>,)> {
     UpdateSet<ConflictMappedItem> Function(
       Expr<ConflictMappedItem> conflictMappedItem,
       UpdateSet<ConflictMappedItem> Function({
-        Expr<int> id,
+        Expr<int> complexId,
         Expr<String> name,
         Expr<int> value,
       })
@@ -233,8 +236,12 @@ extension QueryConflictMappedItemExt on Query<(Expr<ConflictMappedItem>,)> {
     _$ConflictMappedItem._$table,
     (conflictMappedItem) => updateBuilder(
       conflictMappedItem,
-      ({Expr<int>? id, Expr<String>? name, Expr<int>? value}) =>
-          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([id, name, value]),
+      ({Expr<int>? complexId, Expr<String>? name, Expr<int>? value}) =>
+          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([
+            complexId,
+            name,
+            value,
+          ]),
     ),
   );
 
@@ -294,7 +301,7 @@ extension QuerySingleConflictMappedItemExt
     UpdateSet<ConflictMappedItem> Function(
       Expr<ConflictMappedItem> conflictMappedItem,
       UpdateSet<ConflictMappedItem> Function({
-        Expr<int> id,
+        Expr<int> complexId,
         Expr<String> name,
         Expr<int> value,
       })
@@ -306,8 +313,12 @@ extension QuerySingleConflictMappedItemExt
     _$ConflictMappedItem._$table,
     (conflictMappedItem) => updateBuilder(
       conflictMappedItem,
-      ({Expr<int>? id, Expr<String>? name, Expr<int>? value}) =>
-          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([id, name, value]),
+      ({Expr<int>? complexId, Expr<String>? name, Expr<int>? value}) =>
+          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([
+            complexId,
+            name,
+            value,
+          ]),
     ),
   );
 
@@ -322,7 +333,7 @@ extension QuerySingleConflictMappedItemExt
 
 /// Extension methods for expressions on a row in the `conflictMappedItems` table.
 extension ExpressionConflictMappedItemExt on Expr<ConflictMappedItem> {
-  Expr<int> get id =>
+  Expr<int> get complexId =>
       $ForGeneratedCode.field(this, 0, $ForGeneratedCode.integer);
 
   Expr<String> get name =>
@@ -333,7 +344,7 @@ extension ExpressionConflictMappedItemExt on Expr<ConflictMappedItem> {
 }
 
 extension ExpressionNullableConflictMappedItemExt on Expr<ConflictMappedItem?> {
-  Expr<int?> get id =>
+  Expr<int?> get complexId =>
       $ForGeneratedCode.field(this, 0, $ForGeneratedCode.integer);
 
   Expr<String?> get name =>
@@ -348,7 +359,7 @@ extension ExpressionNullableConflictMappedItemExt on Expr<ConflictMappedItem?> {
   ///
   /// If this is a reference lookup by subquery it might be more efficient
   /// to check if the referencing field is `NULL`.
-  Expr<bool> isNotNull() => id.isNotNull();
+  Expr<bool> isNotNull() => complexId.isNotNull();
 
   /// Check if the row is `NULL`.
   ///
@@ -364,8 +375,8 @@ enum ConflictMappedItemConflict {
   /// Conflict with an existing row that has a matching primary key.
   ///
   /// Thus, the other row has matching values for:
-  /// `id`.
-  primaryKey(['id']),
+  /// `complexId`.
+  primaryKey(['complex_id']),
 
   /// `name` conflict.
   ///
@@ -450,7 +461,7 @@ extension InsertOnConflictConflictMappedItemExt
       Expr<ConflictMappedItem> conflictMappedItem,
       Expr<ConflictMappedItem> excluded,
       UpdateSet<ConflictMappedItem> Function({
-        Expr<int> id,
+        Expr<int> complexId,
         Expr<String> name,
         Expr<int> value,
       })
@@ -462,8 +473,12 @@ extension InsertOnConflictConflictMappedItemExt
     (conflictMappedItem, excluded) => updateBuilder(
       conflictMappedItem,
       excluded,
-      ({Expr<int>? id, Expr<String>? name, Expr<int>? value}) =>
-          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([id, name, value]),
+      ({Expr<int>? complexId, Expr<String>? name, Expr<int>? value}) =>
+          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([
+            complexId,
+            name,
+            value,
+          ]),
     ),
   );
 }
@@ -539,7 +554,7 @@ extension InsertOnConflictSingleConflictMappedItemExt
       Expr<ConflictMappedItem> conflictMappedItem,
       Expr<ConflictMappedItem> excluded,
       UpdateSet<ConflictMappedItem> Function({
-        Expr<int> id,
+        Expr<int> complexId,
         Expr<String> name,
         Expr<int> value,
       })
@@ -551,8 +566,12 @@ extension InsertOnConflictSingleConflictMappedItemExt
     (conflictMappedItem, excluded) => updateBuilder(
       conflictMappedItem,
       excluded,
-      ({Expr<int>? id, Expr<String>? name, Expr<int>? value}) =>
-          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([id, name, value]),
+      ({Expr<int>? complexId, Expr<String>? name, Expr<int>? value}) =>
+          $ForGeneratedCode.buildUpdate<ConflictMappedItem>([
+            complexId,
+            name,
+            value,
+          ]),
     ),
   );
 }
@@ -562,8 +581,8 @@ extension InsertOnConflictSingleConflictMappedItemExt
 ///
 /// [1]: https://pub.dev/packages/checks
 extension ConflictMappedItemChecks on Subject<ConflictMappedItem> {
-  /// Create assertions on [ConflictMappedItem.id].
-  Subject<int> get id => has((m) => m.id, 'id');
+  /// Create assertions on [ConflictMappedItem.complexId].
+  Subject<int> get complexId => has((m) => m.complexId, 'complexId');
 
   /// Create assertions on [ConflictMappedItem.name].
   Subject<String> get name => has((m) => m.name, 'name');
