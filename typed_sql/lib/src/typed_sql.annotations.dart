@@ -268,6 +268,67 @@ final class Unique {
   const Unique.field({String? name}) : _name = name, _fields = null;
 }
 
+/// Annotation to define a database `INDEX`.
+///
+/// The index is emitted as a separate `CREATE INDEX` statement following the
+/// `CREATE TABLE` statement.
+///
+/// This annotation may be applied multiple times on a _row class_ to define
+/// multiple indexes.
+///
+/// {@category schema}
+@Target({.classType, .getter})
+final class Index {
+  // ignore: unused_field
+  final String? _name; // used by code-gen ('-' means derive from columns)
+  // ignore: unused_field
+  final List<String>? _fields; // used by code-gen (null => field-level)
+
+  /// Add a composite index covering multiple [fields].
+  ///
+  /// If [name] is not given it'll be derived from indexed fields.
+  ///
+  /// **Example:**
+  /// ```dart
+  /// @PrimaryKey(['id'])
+  /// @Index(fields: ['firstName', 'lastName'])
+  /// abstract final class User extends Row {
+  ///   int get id;
+  ///
+  ///   String get firstName;
+  ///   String get lastName;
+  /// }
+  /// ```
+  ///
+  /// > [!TIP]
+  /// > If you only want to index a single field, you may use the
+  /// > [Index.field] annotation instead.
+  const Index({
+    String? name,
+    required List<String> fields,
+  }) : _name = name ?? '-',
+       _fields = fields;
+
+  /// Add an index covering a single field.
+  ///
+  /// To create a _composite index_, use the [Index] annotation at the
+  /// _row class_ level.
+  ///
+  /// If [name] is not given, it'll be derived from indexed field.
+  ///
+  /// **Example:**
+  /// ```dart
+  /// @PrimaryKey(['id'])
+  /// abstract final class User extends Row {
+  ///   int get id;
+  ///
+  ///   @Index.field()
+  ///   String get email;
+  /// }
+  /// ```
+  const Index.field({String? name}) : _name = name, _fields = null;
+}
+
 /// Naming scheme for deriving SQL _table_ and _column_ names from Dart
 /// identifiers.
 ///

@@ -143,6 +143,18 @@ final class _$SnakeUser extends SnakeUser {
       ['first_name', 'last_name'],
     ],
     foreignKeys: [],
+    indexes: [
+      $ForGeneratedCode.indexDefinition(
+        name: null,
+        sqlName: null,
+        columns: ['last_name'],
+      ),
+      $ForGeneratedCode.indexDefinition(
+        name: null,
+        sqlName: null,
+        columns: ['last_name', 'first_name'],
+      ),
+    ],
     readRow: _$SnakeUser._$fromDatabase,
   );
 
@@ -765,6 +777,7 @@ final class _$SnakeProfile extends SnakeProfile {
         onUpdate: .noAction,
       ),
     ],
+    indexes: [],
     readRow: _$SnakeProfile._$fromDatabase,
   );
 
