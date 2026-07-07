@@ -40,6 +40,7 @@ final _allowedElements = <String>{
   'SUP',
   'SUB',
   'P',
+  'PICTURE',
   'OL',
   'UL',
   'TABLE',
@@ -75,6 +76,7 @@ final _allowedElements = <String>{
   'DFN',
   'MARK',
   'SMALL',
+  'SOURCE',
   'SPAN',
   'TIME',
   'WBR',
@@ -177,6 +179,29 @@ bool _validUrl(String url) {
   }
 }
 
+// `srcset` is a comma-separated list of "<url> [descriptor]" candidates.
+// Validate every candidate's URL with the same scheme rules as `src`, so a
+// single bad entry (e.g. a `javascript:` URL) rejects the whole attribute. The
+// optional descriptor must be a width (`640w`) or pixel-density (`1.5x`) value;
+// arbitrary trailing text rejects the attribute.
+//
+// See also: https://html.spec.whatwg.org/multipage/images.html#srcset-attributes
+final _srcsetDescriptor = RegExp(r'^(?:[0-9]+w|[0-9]*\.?[0-9]+x)$');
+
+bool _validSrcset(String value) {
+  for (final candidate in value.split(',')) {
+    final trimmed = candidate.trim();
+    if (trimmed.isEmpty) continue;
+    final parts = trimmed.split(RegExp(r'\s+'));
+    if (!_validUrl(parts.first)) return false;
+    if (parts.length > 2) return false;
+    if (parts.length == 2 && !_srcsetDescriptor.hasMatch(parts[1])) {
+      return false;
+    }
+  }
+  return true;
+}
+
 final _citeAttributeValidator = <String, bool Function(String)>{
   'cite': _validUrl,
 };
@@ -189,6 +214,9 @@ final _elementAttributeValidators =
   'IMG': {
     'src': _validUrl,
     'longdesc': _validUrl,
+  },
+  'SOURCE': {
+    'srcset': _validSrcset,
   },
   'DIV': {
     'itemscope': _alwaysAllowed,
@@ -207,7 +235,7 @@ final _elementAttributeValidators =
 /// Flavored Markdown). Notably this excludes CSS styles and other tags that
 /// easily interferes with the rest of the page.
 ///
-/// [1]: https://github.com/jch/html-pipeline/blob/master/lib/html/pipeline/sanitization_filter.rb
+/// [1]: https://github.com/gjtorikian/html-pipeline/blob/main/lib/html_pipeline/sanitization_filter.rb
 class SaneHtmlValidator {
   final bool Function(String)? allowElementId;
   final bool Function(String)? allowClassName;
